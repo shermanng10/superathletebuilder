@@ -1,49 +1,59 @@
 from django.shortcuts import HttpResponse
+from .models import Athlete, League, Sport, Team
+from django.views import generic
 
 def home(request):
 	return HttpResponse("This is the home page")
 
 
-
 def new_athlete(request):
 	return HttpResponse("This is a new athlete page")
 
-def athlete_index(request):
-	return HttpResponse("This is the index page")
+class AthleteIndexView(generic.ListView):
+	model = Athlete
+	template_name = 'athletes/index.html'
+	paginate_by = 10
 	
-def athlete_detail(request, athlete_id):
-	return HttpResponse("This is detailed")
-
+class AthleteDetailView(generic.DetailView):
+	model = Athlete
+	template_name = 'athletes/detail.html'
 
 
 def new_team(request):
 	return HttpResponse("This is a new team page")
 
-def team_index(request):
-	return HttpResponse("This is the index page")
-
-def team_detail(request, team_id):
-	return HttpResponse("This is detailed")
-
+class TeamIndexView(generic.ListView):
+	model = Team
+	template_name = 'teams/index.html'
+	paginate_by = 5
+	
+class TeamDetailView(generic.DetailView):
+	model = Team
+	template_name = 'teams/detail.html'
 
 
 def new_league(request):
 	return HttpResponse("This is a new league page")
 
-def league_index(request):
-	return HttpResponse("This is the index page")
+class LeagueIndexView(generic.ListView):
+	model = League
+	template_name = 'leagues/index.html'
+	paginate_by = 5
 
-def league_detail(request, league_id):
-	return HttpResponse("This is detailed")
+class LeagueDetailView(generic.DetailView):
+	model = League
+	template_name = 'leagues/detail.html'
 
 
 
 def new_sport(request):
 	return HttpResponse("This is a new sport page")
 
-def sport_index(request):
-	return HttpResponse("This is the index page")
+class SportIndexView(generic.ListView):
+	model = Sport
+	template_name = 'sports/index.html'
+	paginate_by = 5
 
-def sport_detail(request, sport_id):
-	return HttpResponse("This is detailed")
-
+class SportDetailView(generic.DetailView):
+	model = Sport
+	template_name = 'sports/detail.html'
