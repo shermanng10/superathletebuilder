@@ -6,11 +6,17 @@ class Sport(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
+	def __str__(self):
+		return self.name
+
 class League(models.Model):
 	name = models.CharField(max_length=20)
 	sport = models.ForeignKey(Sport)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return self.name
 	
 class Team(models.Model):
 	name = models.CharField(max_length=20)
@@ -18,6 +24,9 @@ class Team(models.Model):
 	league = models.ForeignKey(League)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return self.name
 
 class Athlete(models.Model):
 	first_name = models.CharField(max_length=25)
@@ -30,6 +39,9 @@ class Athlete(models.Model):
 	team = models.ForeignKey(Team, blank=True, null=True)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return "%s %s" % (self.first_name, self.last_name)
 
 
 
