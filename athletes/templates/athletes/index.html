@@ -1,0 +1,27 @@
+{% if athlete_list %}
+  {% for athlete in athlete_list %}
+    <div class='athlete'>
+      {{ athlete.first_name }}
+      {{ athlete.last_name }}
+      <a href="/athletes/{{ athlete.id }}/">Detailed</a>
+    </div>
+  {% endfor %}
+  {% if is_paginated %}
+    <div class="pagination">
+      <span class="page-links">
+        {% if page_obj.has_previous %}
+          <a href="/athletes?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+          <span class="page-current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+          </span>
+        {% if page_obj.has_next %}
+          <a href="/athletes?page={{ page_obj.next_page_number }}">next</a>
+        {% endif %}
+      </span>
+    </div>
+  {% endif %}
+{% else %}
+    <h3>Athletes</h3>
+    <p>No athletes found in the database.</p>
+{% endif %}
