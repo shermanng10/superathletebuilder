@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+
 <form action="/sports/new/" method="post">
  	{% csrf_token %}
   {{ form.as_p }}

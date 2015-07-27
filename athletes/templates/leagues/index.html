@@ -1,10 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
 {% if league_list %}
+  <div class="list-group">
   {% for league in league_list %}
-    <div class='league'>
-      {{ league.name }}
-      <a href="/leagues/{{ league.id }}/">Detailed</a>
+  <a href="/leagues/{{ league.id }}/" class="list-group-item">
+    <div class="row">
+      <div class="col-sm-4 vcenter">
+      {% load staticfiles %}
+      <img src="{% static 'athletes/images/genericcup.png' %}"/>
+        {{ league.name }}
+      </div><!--
+   --><div class="col-sm-4 vcenter">
+        {{ league.sport }}
+      </div><!--
+   --><div class="col-sm-4 vcenter">
+      </div>
     </div>
+  </a>
   {% endfor %}
+  </div>
   {% if is_paginated %}
     <div class="pagination">
       <span class="page-links">
@@ -24,3 +40,5 @@
     <h3>leagues</h3>
     <p>No leagues found in the database.</p>
 {% endif %}
+
+{% endblock %}

@@ -1,26 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
 {% if sport_list %}
+  <div class="list-group">
   {% for sport in sport_list %}
-    <div class='sport'>
-      {{ sport.name }}
-      <a href="/sports/{{ sport.id }}/">Detailed</a>
+  <a href="/sports/{{ sport.id }}/" class="list-group-item">
+    <div class="row">
+      <div class="col-sm-4 vcenter">
+      {% load staticfiles %}
+      <img src="{% static 'athletes/images/genericrunning.png' %}" width='115' height='115'/>
+      </div><!--
+   --><div class="col-sm-4 vcenter">
+        {{ sport.name }}
+      </div><!--
+   --><div class="col-sm-4 vcenter">
+      </div>
     </div>
+  </a>
   {% endfor %}
-  {% if is_paginated %}
-    <div class="pagination">
-      <span class="page-links">
-        {% if page_obj.has_previous %}
-          <a href="/sports?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
-          <span class="page-current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-          </span>
-        {% if page_obj.has_next %}
-          <a href="/sports?page={{ page_obj.next_page_number }}">next</a>
-        {% endif %}
-      </span>
-    </div>
-  {% endif %}
-{% else %}
-    <h3>sports</h3>
-    <p>No sports found in the database.</p>
+  </div>
+{% if is_paginated %}
+  <div class="pagination">
+    <span class="page-links">
+      {% if page_obj.has_previous %}
+        <a href="/sports?page={{ page_obj.previous_page_number }}">previous</a>
+      {% endif %}
+        <span class="page-current">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+      {% if page_obj.has_next %}
+        <a href="/sports?page={{ page_obj.next_page_number }}">next</a>
+      {% endif %}
+    </span>
+  </div>
 {% endif %}
+{% else %}
+  <h3>sports</h3>
+  <p>No sports found in the database.</p>
+{% endif %}
+
+{% endblock %}

@@ -38,7 +38,7 @@ def new_athlete(request):
 class AthleteIndexView(generic.ListView):
 	model = Athlete
 	template_name = 'athletes/index.html'
-	paginate_by = 10
+	paginate_by = 5
 	
 class AthleteDetailView(generic.DetailView):
 	model = Athlete

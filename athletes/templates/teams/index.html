@@ -1,13 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
 {% if team_list %}
+  <div class="list-group">
   {% for team in team_list %}
-    <div class='team'>
-      {{ team.name }}
-      <a href="/teams/{{ team.id }}/">Detailed</a>
+  <a href="/teams/{{ team.id }}/" class="list-group-item">
+    <div class="row">
+      <div class="col-sm-4 vcenter">
+      {% load staticfiles %}
+      <img src="{% static 'athletes/images/genericteam.png' %}" width="115" height="115" />
+        {{ team.name }}
+      </div><!--
+   --><div class="col-sm-4 vcenter">
+        {{ team.sport }}
+      </div><!--
+   --><div class="col-sm-4 vcenter">
+      </div>
     </div>
+  </a>
   {% endfor %}
+  </div>
   {% if is_paginated %}
-    <div class="pagination">
-      <span class="page-links">
+    <div class="container pagination">
+      <div class="col-sm-4 vcenter"></div>
+      <div class="col-sm-4 vcenter">
         {% if page_obj.has_previous %}
           <a href="/teams?page={{ page_obj.previous_page_number }}">previous</a>
         {% endif %}
@@ -17,10 +33,12 @@
         {% if page_obj.has_next %}
           <a href="/teams?page={{ page_obj.next_page_number }}">next</a>
         {% endif %}
-      </span>
+     </div>>
+     <div class="col-sm-4 vcenter"></div>
     </div>
   {% endif %}
 {% else %}
     <h3>teams</h3>
     <p>No teams found in the database.</p>
 {% endif %}
+{% endblock %}
