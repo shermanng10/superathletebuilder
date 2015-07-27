@@ -1,7 +1,10 @@
-<div class="modal-dialog modal-lg">
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'athletes/css/bootstrap.css' %}" />
+
+
 	<div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">&times;</button>
-  	<h4 class="modal-title">Add An Athlete</h4>
+  	<h4 class="modal-title">Edit Athlete</h4>
   </div>
   <div class="modal-body">
     <form id="edit-athlete-form" method='post' class="form" role="form" action='/athletes/{{athlete.id}}/edit/'>
@@ -18,7 +21,9 @@
   </ul> 
   	{% endif %}
 
-  	{{ field.label_tag }} {{ field }} 
+  <div class="form-group">
+  	{{ field.label_tag }} {{ field }}
+  </div>
   	{% if field.help_text %}
    <div class="form-helptext">
    	{{ field.help_text }}
@@ -31,6 +36,5 @@
     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
   </div>
   </form>
-</div>
 
 
