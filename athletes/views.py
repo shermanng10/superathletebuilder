@@ -5,6 +5,7 @@ from django.views import generic
 from .models import Athlete, League, Sport, Team
 from app_forms.athlete_forms import AthleteForm
 from app_forms.team_forms import TeamForm
+from app_forms.league_forms import LeagueForm
 
 
 def home(request):
@@ -48,7 +49,9 @@ def new_team(request):
 		form = TeamForm(request.POST)
 		if form.is_valid():
 			team = form.save(commit=False)
-			team.name = form.cleaned_data['team']
+			team.name = form.cleaned_data['name']
+			team.sport = form.cleaned_data['sport']
+			team.league = form.cleaned_data['league']
 			team.save()
 			return HttpResponseRedirect('/teams/')
 	else:
@@ -67,7 +70,19 @@ class TeamDetailView(generic.DetailView):
 
 
 def new_league(request):
-	return HttpResponse("This is a new league page")
+	if request.method == 'POST':
+		form = LeagueForm(request.POST)
+		if form.is_valid():
+			league = form.save(commit=False)
+			league.name = form.cleaned_data['name']
+			league.sport = form.cleaned_date['sport']
+			league.save()
+			return HttpResponseRedirect('/leagues/')
+	else:
+		form = LeagueForm()
+
+	return render(request, 'leagues/new.html', {'form': form})
+	
 
 class LeagueIndexView(generic.ListView):
 	model = League
