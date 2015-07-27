@@ -6,10 +6,11 @@ from .models import Athlete, League, Sport, Team
 from app_forms.athlete_forms import AthleteForm
 from app_forms.team_forms import TeamForm
 from app_forms.league_forms import LeagueForm
+from app_forms.sport_forms import SportForm
 
 
 def home(request):
-	return HttpResponse("This is the home page")
+	return render(request, 'home.html')
 
 
 def new_athlete(request):
@@ -96,7 +97,18 @@ class LeagueDetailView(generic.DetailView):
 
 
 def new_sport(request):
-	return HttpResponse("This is a new sport page")
+	if request.method == 'POST':
+		form = SportForm(request.POST)
+		if form.is_valid():
+			sport = form.save(commit=False)
+			sport.name = form.cleaned_data['name']
+			sport.save()
+			return HttpResponseRedirect('/sports/')
+	else:
+		form = SportForm()
+
+	return render(request, 'sports/new.html', {'form': form})
+
 
 class SportIndexView(generic.ListView):
 	model = Sport
