@@ -1,5 +1,53 @@
 {% extends "base.html" %}
 
-This is a detailed athlete
-{{ athlete.first_name }}
-{{ athlete.last_name }}
+{% block content %}
+
+{% if athlete %}
+	<div class="container">
+		<div class="header-wrapper">
+			{% load staticfiles %}
+      <div class='header-image'><img src="{% static 'athletes/images/personicon.png' %}"/></div>
+      <div class='header-content'>
+				<h1 class='header-person-name'>
+					{{ athlete.first_name }} {{ athlete.last_name }}
+				</h1>
+				<h3 class='header-person-info'>
+					{{ athlete.sport }} - {{ athlete.team }}, {{ athlete.league }}
+				</h3>
+			</div>
+		</div>
+		<div class='detailed-wrapper'>
+			<div class="row">
+				<div class="col-sm-5">
+					<div class='personal-info'>
+						<h2>Personal Info</h2>
+						<p><span class='info-tag'>Age: </span>{{ athlete.age }}</p>
+						<p><span class='info-tag'>Gender: </span>{{ athlete.gender }}</p>
+						<p><span class='info-tag'>Website: </span>{{ athlete.website }}</p>
+					</div>
+					<div class="about">
+						<h2>About</h2>
+							<p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed leo erat, tempus vitae pulvinar in, venenatis vitae turpis. Nulla placerat sollicitudin erat non placerat. Sed vitae tincidunt nunc. Morbi dolor lorem, ullamcorper sit amet tortor ac, porttitor tincidunt sapien. Nulla ultrices nibh in dui accumsan ultrices. Fusce hendrerit dignissim felis, sit amet fermentum lectus lobortis non. Ut eget aliquet justo, et ultricies dui. Quisque feugiat arcu nec purus aliquam, sed vehicula nunc elementum. Nam a ultrices lacus. Cras sodales metus ligula, eget vehicula eros luctus non. Cras maximus facilisis ipsum, quis lacinia dui fringilla at. Nullam fermentum mi et lorem convallis, id tempus sem bibendum. Ut id mi nec augue vehicula sagittis. Nam non euismod nisl. Pellentesque id erat risus.
+							</p>
+					</div>
+				</div>
+				<div class="col-sm-2">
+				</div>
+				<div class="col-sm-5">
+					<div class='awards'>
+					<h2>Awards and Accolades</h2>
+						<ul class='award-list'>
+							<li>The Lantern Rouge 2013</li>
+							<li>The Ig Nobel Prize</li>
+							<li>The Darwin Awards</li>
+							<li>The Razzies</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}
+
+{% endblock %}

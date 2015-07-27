@@ -4,6 +4,22 @@
     float: none;
 }
 
-div.imgmargin{
+div.imgmargin {
 	margin-right: 4px;
 }
+
+.header-wrapper {
+	height: 115px;
+}
+
+.header-image {
+	display: inline-block;
+	margin-right: 20px;
+}
+
+.header-content {
+	vertical-align:middle;
+	display: inline-block;
+	color: red;
+}
+
