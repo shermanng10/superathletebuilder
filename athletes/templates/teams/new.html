@@ -1,7 +1,37 @@
-{% extends "base.html" %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'athletes/css/bootstrap.css' %}" />
 
-<form action="/teams/new/" method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Submit" />
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal">&times;</button>
+	<h4 class="modal-title">Add A Team</h4>
+</div>
+<div class="modal-body">
+  <form id="new-team-form" method='post' class="form" role="form" action='/teams/new/'>
+    {% csrf_token %}
+    {{ form.non_field_errors }} 
+<div class="form-group"> 
+	{% for field in form %} 
+<div class="form-group">
+		{% if field.errors %} 
+	<ul class="form-errors"> 
+		{% for error in field.errors %}
+		<li><span class="fa fa-exclamation-triangle"></span> <strong>{{ error|escape }}</strong></li> 
+	{% endfor %} 
+</ul> 
+	{% endif %}
+
+	<div class="form-group">
+		{{ field.label_tag }} {{ field }}
+	</div>
+	{% if field.help_text %}
+ <div class="form-helptext">
+ 	{{ field.help_text }}
+ </div>
+ 	{% endif %}
+  {% endfor %} 
+</div>
+<div class="modal-footer">
+ 	<input class="btn btn-primary" type="submit" value="Save" />
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
 </form>
