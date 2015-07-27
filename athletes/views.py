@@ -1,13 +1,36 @@
 from django.shortcuts import HttpResponse
-from .models import Athlete, League, Sport, Team
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from django.views import generic
+from .models import Athlete, League, Sport, Team
+from app_forms.athlete_forms import AthleteForm
+
 
 def home(request):
 	return HttpResponse("This is the home page")
 
 
 def new_athlete(request):
-	return HttpResponse("This is a new athlete page")
+	if request.method == 'POST':
+		form = AthleteForm(request.POST)
+		if form.is_valid():
+			athlete = form.save(commit=False)
+			athlete.first_name = form.cleaned_data['first_name']
+			athlete.last_name = form.cleaned_data['last_name']
+			athlete.age = form.cleaned_data['age']
+			athlete.gender = form.cleaned_data['gender']
+			athlete.website = form.cleaned_data['website']
+			athlete.sport = form.cleaned_data['sport']
+			athlete.league = form.cleaned_data['league']
+			athlete.team = form.cleaned_data['team']
+			athlete.save()
+			
+			return HttpResponseRedirect('/athletes/')
+	else:
+		form = AthleteForm()
+
+	return render(request, 'athletes/new.html', {'form': form})
+
 
 class AthleteIndexView(generic.ListView):
 	model = Athlete
