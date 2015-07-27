@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="col-sm-4"></div>
+<div class="col-sm-4">
+<h1>Hey, are you sure you want to delete {{ athlete.first_name }} {{ athlete.last_name }}?</h1>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Yep, I'm sure.</button>
+</form>
+</div>
+<div class="col-sm-4"></div>
+{% endblock %}

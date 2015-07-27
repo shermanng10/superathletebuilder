@@ -1,7 +1,7 @@
 from django.shortcuts import HttpResponse
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views import generic
 from .models import Athlete, League, Sport, Team
 from app_forms.athlete_forms import AthleteForm
@@ -9,6 +9,7 @@ from app_forms.team_forms import TeamForm
 from app_forms.league_forms import LeagueForm
 from app_forms.sport_forms import SportForm
 from django.template.loader import render_to_string
+from django.core.urlresolvers import reverse_lazy
 
 def home(request):
 	return render(request, 'home.html')
@@ -53,6 +54,11 @@ class EditAthleteView(UpdateView):
 class AthleteDetailView(generic.DetailView):
 	model = Athlete
 	template_name = 'athletes/detail.html'
+
+class AthleteDelete(DeleteView):
+	model = Athlete
+	success_url = reverse_lazy('athlete_index')
+	template_name = 'athletes/delete_athlete.html'
 
 
 def new_team(request):
