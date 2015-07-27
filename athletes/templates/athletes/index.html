@@ -2,7 +2,14 @@
 
 {% block title %}The Athletes{% endblock %}
 
+{% block extra_js%}
+  <script src="http://malsup.github.com/jquery.form.js"></script>
+{% endblock %}
+
 {% block content %}
+<div class='btn-wrapper'>
+  <a class="btn btn-info btn-lg top-btn" data-toggle="modal" href="/athletes/new" data-target="#newAthlete" title="new athlete" data-tooltip>Add A New Athlete</a>
+</div>
 
 {% if athlete_list %}
   <div class="list-group">
@@ -50,5 +57,10 @@
     <h3>Athletes</h3>
     <p>No athletes found in the database.</p>
 {% endif %}
-
+<div class="modal fade" id="newAthlete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
+  <div class="modal-dialog modal-lg"> 
+    <div class="modal-content">
+    </div>
+  </div>
+</div> 
 {% endblock %}
