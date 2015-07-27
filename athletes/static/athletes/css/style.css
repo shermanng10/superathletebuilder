@@ -28,3 +28,7 @@ div.imgmargin {
 	text-align: right;
 }
 
+.edit-btn-wrapper {
+	display: inline-block;
+	float:right;
+}

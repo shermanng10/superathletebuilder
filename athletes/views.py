@@ -1,7 +1,7 @@
 from django.shortcuts import HttpResponse
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views import generic
 from .models import Athlete, League, Sport, Team
 from app_forms.athlete_forms import AthleteForm
@@ -36,6 +36,19 @@ class AthleteIndexView(generic.ListView):
 	model = Athlete
 	template_name = 'athletes/index.html'
 	paginate_by = 5
+
+class EditAthleteView(UpdateView):
+	model = Athlete
+	form_class = AthleteForm
+	template_name = 'athletes/edit.html'
+
+	def dispatch(self, *args, **kwargs):
+		self.item_id = kwargs['pk']
+		return super(EditAthleteView, self).dispatch(*args, **kwargs)
+
+	def form_valid(self, form):
+		athlete = form.save()
+		return HttpResponseRedirect("/athletes/" + str(athlete.id))
 	
 class AthleteDetailView(generic.DetailView):
 	model = Athlete
