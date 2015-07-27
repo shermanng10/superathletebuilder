@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.views import generic
 from .models import Athlete, League, Sport, Team
 from app_forms.athlete_forms import AthleteForm
+from app_forms.team_forms import TeamForm
 
 
 def home(request):
@@ -24,7 +25,7 @@ def new_athlete(request):
 			athlete.league = form.cleaned_data['league']
 			athlete.team = form.cleaned_data['team']
 			athlete.save()
-			
+
 			return HttpResponseRedirect('/athletes/')
 	else:
 		form = AthleteForm()
@@ -43,7 +44,17 @@ class AthleteDetailView(generic.DetailView):
 
 
 def new_team(request):
-	return HttpResponse("This is a new team page")
+	if request.method == 'POST':
+		form = TeamForm(request.POST)
+		if form.is_valid():
+			team = form.save(commit=False)
+			team.name = form.cleaned_data['team']
+			team.save()
+			return HttpResponseRedirect('/teams/')
+	else:
+		form = TeamForm()
+
+	return render(request, 'teams/new.html', {'form': form})
 
 class TeamIndexView(generic.ListView):
 	model = Team
