@@ -61,20 +61,20 @@ class AthleteDelete(DeleteView):
 	template_name = 'athletes/delete_athlete.html'
 
 
-def new_team(request):
-	if request.method == 'POST':
-		form = TeamForm(request.POST)
-		if form.is_valid():
-			team = form.save(commit=False)
-			team.name = form.cleaned_data['name']
-			team.sport = form.cleaned_data['sport']
-			team.league = form.cleaned_data['league']
-			team.save()
-			return HttpResponseRedirect('/teams/')
-	else:
-		form = TeamForm()
+class NewTeamView(CreateView):
+	model = Team
+	form_class = TeamForm
+	template_name = 'teams/new.html'
 
-	return render(request, 'teams/new.html', {'form': form})
+	def form_valid(self, form):
+		form.save()
+		team = form.save(commit=False)
+		team.name = form.cleaned_data['name']
+		team.sport = form.cleaned_data['sport']
+		team.league = form.cleaned_data['league']
+		team.save()
+		return HttpResponseRedirect('/teams/')
+	
 
 class TeamIndexView(generic.ListView):
 	model = Team
@@ -86,36 +86,23 @@ class TeamDetailView(generic.DetailView):
 	template_name = 'teams/detail.html'
 
 
-def new_league(request):
-	if request.method == 'POST':
-		form = LeagueForm(request.POST)
-		if form.is_valid():
-			league = form.save(commit=False)
-			league.name = form.cleaned_data['name']
-			league.sport = form.cleaned_date['sport']
-			league.save()
-			return HttpResponseRedirect('/leagues/')
-	else:
-		form = LeagueForm()
+class NewLeagueView(CreateView):
+	model = League
+	form_class = LeagueForm
+	template_name = 'leagues/new.html'
 
-	return render(request, 'leagues/new.html', {'form': form})
+	def form_valid(self, form):
+		form.save()
+		league = form.save(commit=False)
+		league.name = form.cleaned_data['name']
+		league.sport = form.cleaned_data['sport']
+		league.save()
+		return HttpResponseRedirect('/leagues/')
 	
 class LeagueDetailView(generic.DetailView):
-	context_object_name = "athlete_list"
+	model = League
 	template_name = 'leagues/league_detail.html'
 
-	def get_queryset(self):
-		self.league = get_object_or_404(League, id=self.kwargs["pk"])
-		print self.league
-		athletes = Athlete.objects.filter(league=self.league)
-		print athletes
-		return athletes
-
-	def get_context_data(self, **kwargs):
-		context = super(LeagueDetailView, self).get_context_data(**kwargs)
-
-		context['league'] = self.league
-		return context
 
 class LeagueIndexView(generic.ListView):
 	model = League
@@ -124,19 +111,18 @@ class LeagueIndexView(generic.ListView):
 
 
 
-def new_sport(request):
-	if request.method == 'POST':
-		form = SportForm(request.POST)
-		if form.is_valid():
-			sport = form.save(commit=False)
-			sport.name = form.cleaned_data['name']
-			sport.save()
-			return HttpResponseRedirect('/sports/')
-	else:
-		form = SportForm()
+class NewSportView(CreateView):
+	model = Sport
+	form_class = SportForm
+	template_name = 'sports/new.html'
 
-	return render(request, 'sports/new.html', {'form': form})
-
+	def form_valid(self, form):
+		form.save()
+		sport = form.save(commit=False)
+		sport.name = form.cleaned_data['name']
+		sport.save()
+		return HttpResponseRedirect('/sports/')
+	
 
 class SportIndexView(generic.ListView):
 	model = Sport
