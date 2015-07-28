@@ -44,6 +44,10 @@ div.imgmargin {
   background-repeat: no-repeat;
 }
 
+h2.home-description {
+	text-align: center;
+}
+
 #masthead {
 	color: white;
 	height: 380px;
