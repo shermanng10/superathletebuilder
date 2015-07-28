@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="container">
 <div class="col-sm-4"></div>
 <div class="col-sm-4">
 <h1>Hey, are you sure you want to delete {{ athlete.first_name }} {{ athlete.last_name }}?</h1>
@@ -10,4 +11,5 @@
 </form>
 </div>
 <div class="col-sm-4"></div>
+</div>	
 {% endblock %}

@@ -1,54 +1,56 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class='btn-wrapper'>
-  <a class="btn btn-info btn-lg top-btn" data-toggle="modal" href="/leagues/new" data-target="#newLeague" title="new league" data-tooltip>Add A New League</a>
-</div>
+<div class="container">
+  <div class='btn-wrapper'>
+    <a class="btn btn-info btn-lg top-btn" data-toggle="modal" href="/leagues/new" data-target="#newLeague" title="new league" data-tooltip>Add A New League</a>
+  </div>
 
-{% if league_list %}
-  <div class="list-group">
-  {% for league in league_list %}
-  <a href="/leagues/{{ league.id }}/" class="list-group-item">
-    <div class="row">
-      <div class="col-sm-4 vcenter">
-      {% load staticfiles %}
-      <img src="{% static 'athletes/images/genericcup.png' %}"/>
-        {{ league.name }}
-      </div><!--
-   --><div class="col-sm-4 vcenter">
-        {{ league.sport }}
-      </div><!--
-   --><div class="col-sm-4 vcenter">
+  {% if league_list %}
+    <div class="list-group">
+    {% for league in league_list %}
+    <a href="/leagues/{{ league.id }}/" class="list-group-item">
+      <div class="row">
+        <div class="col-sm-4 vcenter">
+        {% load staticfiles %}
+        <img src="{% static 'athletes/images/genericcup.png' %}"/>
+          {{ league.name }}
+        </div><!--
+     --><div class="col-sm-4 vcenter">
+          {{ league.sport }}
+        </div><!--
+     --><div class="col-sm-4 vcenter">
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+    </div>
+    {% if is_paginated %}
+      <div class="pagination">
+        <span class="page-links">
+          {% if page_obj.has_previous %}
+            <a href="/leagues?page={{ page_obj.previous_page_number }}">previous</a>
+          {% endif %}
+            <span class="page-current">
+              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+          {% if page_obj.has_next %}
+            <a href="/leagues?page={{ page_obj.next_page_number }}">next</a>
+          {% endif %}
+        </span>
+      </div>
+    {% endif %}
+  {% else %}
+      <h3>leagues</h3>
+      <p>No leagues found in the database.</p>
+  {% endif %}
+
+  <!-- Empty Modal div used to hold response from js -->
+  <div class="modal fade" id="newLeague" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
+    <div class="modal-dialog modal-sm"> 
+      <div class="modal-content">
       </div>
     </div>
-  </a>
-  {% endfor %}
   </div>
-  {% if is_paginated %}
-    <div class="pagination">
-      <span class="page-links">
-        {% if page_obj.has_previous %}
-          <a href="/leagues?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
-          <span class="page-current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-          </span>
-        {% if page_obj.has_next %}
-          <a href="/leagues?page={{ page_obj.next_page_number }}">next</a>
-        {% endif %}
-      </span>
-    </div>
-  {% endif %}
-{% else %}
-    <h3>leagues</h3>
-    <p>No leagues found in the database.</p>
-{% endif %}
-
-<!-- Empty Modal div used to hold response from js -->
-<div class="modal fade" id="newLeague" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
-  <div class="modal-dialog modal-sm"> 
-    <div class="modal-content">
-    </div>
-  </div>
-</div> 
+</div>
 {% endblock %}

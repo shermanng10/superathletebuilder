@@ -38,3 +38,24 @@ div.imgmargin {
 	width:200px;
 }
 
+
+#masthead-container {
+  background-image: url("../images/banner.jpg"); 
+  background-repeat: no-repeat;
+}
+
+#masthead {
+	color: white;
+	height: 380px;
+	display: table-cell;
+	vertical-align: middle;
+  text-align: center;
+}
+
+.mast {
+	width: 100%;
+	display: inline-block;
+	margin: 20px;
+}
+
+
