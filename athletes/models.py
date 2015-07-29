@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from django.utils.encoding import smart_unicode
+from django.utils.encoding import force_bytes
 
 class Sport(models.Model):
 	name = models.CharField(max_length=20)
@@ -8,7 +8,7 @@ class Sport(models.Model):
 	updated_at = models.DateTimeField(auto_now=True)
 
 	def __str__(self):
-		return self.name
+    return force_bytes(self.name)
 
 class League(models.Model):
 	name = models.CharField(max_length=20)
@@ -16,8 +16,8 @@ class League(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
-	def __str__(self):
-		return self.name
+def __str__(self):
+	return force_bytes(self.name)
 	
 class Team(models.Model):
 	name = models.CharField(max_length=20)
@@ -27,7 +27,7 @@ class Team(models.Model):
 	updated_at = models.DateTimeField(auto_now=True)
 
 	def __str__(self):
-		return self.name
+		return force_bytes(self.name)
 
 class Athlete(models.Model):
 	first_name = models.CharField(max_length=25)
@@ -42,11 +42,7 @@ class Athlete(models.Model):
 	updated_at = models.DateTimeField(auto_now=True)
 
 	def __str__(self):
-		return "%s %s" % (self.first_name, self.last_name)\
-
-	def __unicode__(self):
-		return smart_unicode(self.tag)
-
+		return force_bytes('%s %s' % (self.first_name, self.last_name))
 
 
 
