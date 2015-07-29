@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.utils.encoding import smart_unicode
 
 class Sport(models.Model):
 	name = models.CharField(max_length=20)
@@ -41,7 +42,11 @@ class Athlete(models.Model):
 	updated_at = models.DateTimeField(auto_now=True)
 
 	def __str__(self):
-		return "%s %s" % (self.first_name, self.last_name)
+		return "%s %s" % (self.first_name, self.last_name)\
+
+	def __unicode__(self):
+		return smart_unicode(self.tag)
+
 
 
 
