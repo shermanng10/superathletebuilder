@@ -31,10 +31,10 @@ class Team(models.Model):
 
 class Athlete(models.Model):
 	first_name = models.CharField(max_length=25)
-	last_name = models.CharField(max_length=25)
+	last_name = models.CharField(max_length=25, blank=True, null=True)
 	age = models.PositiveIntegerField()
 	gender = models.CharField(max_length=10)
-	website = models.URLField()
+	website = models.URLField(blank=True, null=True)
 	sport = models.ForeignKey(Sport)
 	league = models.ForeignKey(League, blank=True, null=True)
 	team = models.ForeignKey(Team, blank=True, null=True)
